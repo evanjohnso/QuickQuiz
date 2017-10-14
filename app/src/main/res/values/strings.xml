@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">QuickQuiz</string>
     <string name="nerd_out">Nerd Out!</string>
+    <string name="words_completed">%1$s Words\n%2$d of %3$d completed</string>
 </resources>
