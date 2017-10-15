@@ -1,8 +1,10 @@
 package com.evanrjohnso.quickquiz;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -10,7 +12,7 @@ import org.w3c.dom.Text;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SelectPathActivity extends AppCompatActivity {
+public class SelectPathActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.easy_word)
     TextView mEasyWords;
     @Bind(R.id.medium_words)
@@ -33,5 +35,20 @@ public class SelectPathActivity extends AppCompatActivity {
         mEasyWords.setText(easyCompleted);
         mMediumWords.setText(mediumCompleted);
         mHardWords.setText(hardCompleted);
+
+        mEasyWords.setOnClickListener(this);
+        mMediumWords.setOnClickListener(this);
+        mHardWords.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == mEasyWords) {
+            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+        } else if (view == mMediumWords) {
+            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+        } else if (view == mHardWords) {
+            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+        }
     }
 }
