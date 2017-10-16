@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <!--android:theme="@style/AppTheme"-->
+
+        <!-- android:theme="@style/AppTheme" -->
         <activity
             android:name=".MainActivity"
             android:theme="@style/NoActionBarTheme">
@@ -19,9 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SelectPathActivity"
-            ></activity>
+        <activity android:name=".SelectPathActivity" />
+        <activity android:name=".DictionaryActivity"></activity>
     </application>
 
 </manifest>

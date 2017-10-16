@@ -28,13 +28,11 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         ButterKnife.bind(this);
 
         Resources res = getResources();
-        String easyCompleted = String.format(res.getString(R.string.words_completed), "Easy ", 10, 10);
-        String mediumCompleted = String.format(res.getString(R.string.words_completed), "Medium", 4, 10);
-        String hardCompleted = String.format(res.getString(R.string.words_completed), "Hard", 1, 10);
+        String textToFill = res.getString(R.string.words_completed);
 
-        mEasyWords.setText(easyCompleted);
-        mMediumWords.setText(mediumCompleted);
-        mHardWords.setText(hardCompleted);
+        mEasyWords.setText( String.format(textToFill, "Easy ", 10, 10));
+        mMediumWords.setText( String.format(textToFill, "Medium", 4, 10));
+        mHardWords.setText( String.format(textToFill, "Hard", 1, 10));
 
         mEasyWords.setOnClickListener(this);
         mMediumWords.setOnClickListener(this);
@@ -43,12 +41,16 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
+        Intent intent =  new Intent(SelectPathActivity.this, DictionaryActivity.class);
         if (view == mEasyWords) {
-            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+            intent.putExtra("category", "easy");
+            startActivity(intent);
         } else if (view == mMediumWords) {
-            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+            intent.putExtra("category", "medium");
+            startActivity( intent );
         } else if (view == mHardWords) {
-            startActivity( new Intent(SelectPathActivity.this, MainActivity.class) );
+            intent.putExtra("category", "hard");
+            startActivity( intent );
         }
     }
 }
