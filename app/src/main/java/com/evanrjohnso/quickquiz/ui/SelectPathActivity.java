@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -26,17 +27,19 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     TextView mMediumWords;
     @Bind(R.id.hard_words)
     TextView mHardWords;
+
     private OxfordService oxfordService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_path);
-
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        String phone = intent.getStringExtra("phone");
-        Toast.makeText(this, "Thanks for your number " + phone, Toast.LENGTH_SHORT).show();
+        String phone = intent.getStringExtra(MainActivity.PHONE_KEY);
+        if (phone != null) {
+            Toast.makeText(this, "Thanks for your number " + phone, Toast.LENGTH_SHORT).show();
+        }
 
         Resources res = getResources();
         String textToFill = res.getString(R.string.words_completed);
@@ -57,14 +60,12 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         Intent intent =  new Intent(SelectPathActivity.this, DictionaryActivity.class);
         if (view == mEasyWords) {
             intent.putExtra("category", "easy");
-            startActivity(intent);
         } else if (view == mMediumWords) {
             intent.putExtra("category", "medium");
-            startActivity( intent );
         } else if (view == mHardWords) {
             intent.putExtra("category", "hard");
-            startActivity( intent );
         }
+        startActivity(intent);
     }
 
 

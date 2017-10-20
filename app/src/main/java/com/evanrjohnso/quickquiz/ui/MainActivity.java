@@ -24,36 +24,17 @@ import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int REQUEST_PERMISSION_WRITE = 2345;
-    @Bind(R.id.start_button)
-    Button mStartLearningButton;
+    public static final String PHONE_KEY = "phone";
     @Bind(R.id.main_app_title)
     TextView mMainAppTitle;
     @Bind(R.id.phone_number)
     EditText mUserPhoneNumber;
-    private boolean permissionGranted;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        ButterKnife.bind(this);
-
-        Typeface raleway = Typeface.createFromAsset(getAssets(), "fonts/raleway-black.tff");
-        mMainAppTitle.setTypeface(raleway);
-        mStartLearningButton.setOnClickListener(this);
-
-        if (!permissionGranted) {
-            checkPermissions();
-            return;
-        }
-
-    }
-
-    @Override
+    @OnClick(R.id.start_button)
     public void onClick(View view) {
         String phone = mUserPhoneNumber.getText().toString();
         if (!isPhoneNumberValid(phone)) {
@@ -61,8 +42,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         Intent intent = new Intent(MainActivity.this, SelectPathActivity.class);
-        intent.putExtra("phone", phone);
+        intent.putExtra(PHONE_KEY, phone);
         startActivity(intent);
+
+
+    }
+
+    private boolean permissionGranted;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        mUserPhoneNumber.setText("1234567890");
+
+        Typeface raleway = Typeface.createFromAsset(getAssets(), "fonts/raleway-black.tff");
+        mMainAppTitle.setTypeface(raleway);
+
+        if (!permissionGranted) {
+            checkPermissions();
+            return;
+        }
+
     }
 
     private boolean isPhoneNumberValid(String phoneNumber) {

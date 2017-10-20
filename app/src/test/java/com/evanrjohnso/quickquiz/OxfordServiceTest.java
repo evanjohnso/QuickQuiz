@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class OxfordServiceTest {
-    OxfordService oxford;
+    private OxfordService oxford;
     @Before
     public void setUp() throws Exception {
         oxford = new OxfordService();
@@ -22,7 +22,7 @@ public class OxfordServiceTest {
 
     @Test
     public void grabSentence() throws Exception {
-        oxford.grabSentence("hello");
+//        oxford.grabSentence("hello");
     }
 
     @Test
