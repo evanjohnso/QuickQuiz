@@ -49,13 +49,23 @@ public class OxfordService {
 
     public void processAsyncResponse(Response response) {
         ArrayList<Sentence> sentences = new ArrayList<>();
-        System.out.println("got this far mates");
         try {
             String responseAsJSON = response.body().string();
-            Log.v("responseAsJson", responseAsJSON);
             JSONObject json = new JSONObject(responseAsJSON);
-            JSONArray results = json.getJSONArray("results");
-            System.out.println(results);
+
+            JSONObject results = (JSONObject) json.getJSONArray("results")
+                                                    .get(0);
+            JSONObject sents = (JSONObject) ((JSONArray) results.getJSONArray("lexicalEntries"))
+                    .get(0);
+            JSONArray array = sents.getJSONArray("sentences");
+            Log.v("sents", sents.toString());
+
+
+            for (int i = 0; i < array.length(); i ++) {
+                String returnValue = ( (JSONObject) array.get(i) ) .getString("text");
+                Log.v("entries", returnValue);
+            }
+
         }
         catch (IOException e) {
             e.printStackTrace();
