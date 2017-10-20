@@ -10,13 +10,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.services.OxfordService;
+
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button mStartLearningButton;
     @Bind(R.id.main_app_title)
     TextView mMainAppTitle;
+    @Bind(R.id.phone_number)
+    EditText mUserPhoneNumber;
     private boolean permissionGranted;
 
     @Override
@@ -45,19 +51,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-
-
-
     }
 
     @Override
     public void onClick(View view) {
-        final OxfordService hey = new OxfordService();
-        hey.grabSentence("hello");
+        String phone = mUserPhoneNumber.getText().toString();
+        if (!isPhoneNumberValid(phone)) {
+            mUserPhoneNumber.setError("Please enter a valid number!");
+            return;
+        }
         Intent intent = new Intent(MainActivity.this, SelectPathActivity.class);
+        intent.putExtra("phone", phone);
         startActivity(intent);
-
     }
+
+    private boolean isPhoneNumberValid(String phoneNumber) {
+        return patternMatcher(phoneNumber);
+    }
+    private boolean patternMatcher(String phoneNumber) {
+        String pattern = "\\d{10}|"+
+                "(?:\\d{3}-){2}\\d{4}|" +     // 123-456-7890
+                "\\(\\d{3}\\)\\d{3}-?\\d{4}"; // (123)456-7890
+        Pattern pat = Pattern.compile(pattern);
+        return pat.matcher(phoneNumber).matches();
+    }
+
     // Checks if external storage is available for read and write
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
