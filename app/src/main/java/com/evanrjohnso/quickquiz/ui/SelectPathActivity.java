@@ -1,4 +1,4 @@
-package com.evanrjohnso.quickquiz;
+package com.evanrjohnso.quickquiz.ui;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.evanrjohnso.quickquiz.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

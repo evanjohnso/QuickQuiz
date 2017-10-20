@@ -1,10 +1,12 @@
-package com.evanrjohnso.quickquiz;
+package com.evanrjohnso.quickquiz.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.evanrjohnso.quickquiz.R;
 
 import java.util.List;
 

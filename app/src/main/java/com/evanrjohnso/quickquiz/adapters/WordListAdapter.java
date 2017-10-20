@@ -1,4 +1,4 @@
-package com.evanrjohnso.quickquiz;
+package com.evanrjohnso.quickquiz.adapters;
 
 
 import android.content.Context;
