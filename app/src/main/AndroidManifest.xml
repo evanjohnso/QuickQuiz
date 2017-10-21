@@ -31,6 +31,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.SelectPathActivity" />
         </activity>
+        <activity android:name=".ui.SentencesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.DictionaryActivity" />
+        </activity>
     </application>
 
 </manifest>

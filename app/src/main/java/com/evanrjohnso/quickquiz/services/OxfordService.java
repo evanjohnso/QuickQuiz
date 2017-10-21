@@ -43,39 +43,32 @@ public class OxfordService {
                 .addHeader("app_id", Constants.OXFORD_ID)
                 .addHeader("app_key", Constants.OXFORD_KEY)
                 .build();
-        Call call =  client.newCall(request);
+        Call call = client.newCall(request);
         call.enqueue(callback);
     }
 
-    public void processAsyncResponse(Response response) {
+    public ArrayList<Sentence> processAsyncResponse(Response response) {
         ArrayList<Sentence> sentences = new ArrayList<>();
         try {
             String responseAsJSON = response.body().string();
             JSONObject json = new JSONObject(responseAsJSON);
 
             JSONObject results = (JSONObject) json.getJSONArray("results")
-                                                    .get(0);
-            JSONObject sents = (JSONObject) ((JSONArray) results.getJSONArray("lexicalEntries"))
                     .get(0);
-            JSONArray array = sents.getJSONArray("sentences");
-            Log.v("sents", sents.toString());
-
-
-            for (int i = 0; i < array.length(); i ++) {
-                String returnValue = ( (JSONObject) array.get(i) ) .getString("text");
-                Log.v("entries", returnValue);
+            String word = results.getString("id");
+            JSONObject sentenceObject = (JSONObject) results.getJSONArray("lexicalEntries").get(0);
+            JSONArray array = sentenceObject.getJSONArray("sentences");
+            for (int i = 0; i < array.length(); i++) {
+                String thisSentence = ((JSONObject) array.get(i)).getString("text");
+                sentences.add(new Sentence(word, thisSentence));
             }
-
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        return sentences;
     }
-
 
 
 }

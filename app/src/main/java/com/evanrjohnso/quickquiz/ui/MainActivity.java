@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, SelectPathActivity.class);
         intent.putExtra(PHONE_KEY, phone);
         startActivity(intent);
-
-
     }
 
     private boolean permissionGranted;

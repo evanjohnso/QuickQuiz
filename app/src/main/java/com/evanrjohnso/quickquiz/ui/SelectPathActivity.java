@@ -28,8 +28,6 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     @Bind(R.id.hard_words)
     TextView mHardWords;
 
-    private OxfordService oxfordService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +42,18 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         Resources res = getResources();
         String textToFill = res.getString(R.string.words_completed);
 
-        mEasyWords.setText( String.format(textToFill, "Easy ", 10, 10));
-        mMediumWords.setText( String.format(textToFill, "Medium", 4, 10));
-        mHardWords.setText( String.format(textToFill, "Hard", 1, 10));
+        mEasyWords.setText(String.format(textToFill, "Easy ", 10, 10));
+        mMediumWords.setText(String.format(textToFill, "Medium", 4, 10));
+        mHardWords.setText(String.format(textToFill, "Hard", 1, 10));
 
         mEasyWords.setOnClickListener(this);
         mMediumWords.setOnClickListener(this);
         mHardWords.setOnClickListener(this);
-        oxfordService = new OxfordService();
-        oxfordService.grabSentence("imbroglio", sentenceCallback());
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent =  new Intent(SelectPathActivity.this, DictionaryActivity.class);
+        Intent intent = new Intent(SelectPathActivity.this, DictionaryActivity.class);
         if (view == mEasyWords) {
             intent.putExtra("category", "easy");
         } else if (view == mMediumWords) {
@@ -67,21 +63,4 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         }
         startActivity(intent);
     }
-
-
-    private Callback sentenceCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                oxfordService.processAsyncResponse(response);
-            }
-        };
-    }
-
-
 }
