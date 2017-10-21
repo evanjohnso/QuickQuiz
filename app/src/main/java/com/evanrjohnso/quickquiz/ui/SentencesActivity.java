@@ -58,7 +58,7 @@ public class SentencesActivity extends AppCompatActivity {
                             array[i] = list.get(i).getInSentence();
                         }
                         ArrayAdapter adapter = new ArrayAdapter(SentencesActivity.this,
-                                android.R.layout.simple_list_item_1, array);
+                                R.layout.display_sentences_layout, array);
                         mListView.setAdapter(adapter);
                     }
                 });
