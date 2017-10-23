@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:background="#ffffff"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="10dp">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/word"
         android:id="@+id/wordTextView"
-        android:textStyle="italic"/>
-
-    <TextView
-        android:id="@+id/sentenceTextView"
-        android:text="@string/they_have_all_functionality_of_a_non_nested_class_but_with_limited_scope_they_also_have_full_access_to_the_class_in_which_they_are_nested"
-        android:paddingTop="5dip"
-        android:paddingBottom="3dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:layout_marginTop="8dp"
+        android:text="@string/word"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.514" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/sentenceTextView"
+            android:text="filler text"
+            android:paddingTop="5dip"
+            android:paddingBottom="3dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/wordTextView"
+            app:layout_constraintRight_toRightOf="@+id/wordTextView"
+            app:layout_constraintHorizontal_bias="0.487"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/wordTextView"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp" />
+</android.support.constraint.ConstraintLayout>
