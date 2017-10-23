@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    android:paddingTop="2dip"
-    android:paddingBottom="3dip"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20sp" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/word"
+        android:id="@+id/wordTextView"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/sentenceTextView"
+        android:text="@string/they_have_all_functionality_of_a_non_nested_class_but_with_limited_scope_they_also_have_full_access_to_the_class_in_which_they_are_nested"
+        android:paddingTop="5dip"
+        android:paddingBottom="3dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+</LinearLayout>

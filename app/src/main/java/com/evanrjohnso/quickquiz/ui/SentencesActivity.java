@@ -3,16 +3,16 @@ package com.evanrjohnso.quickquiz.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.R;
+import com.evanrjohnso.quickquiz.adapters.WordListAdapter;
 import com.evanrjohnso.quickquiz.models.Sentence;
 import com.evanrjohnso.quickquiz.services.OxfordService;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -23,9 +23,10 @@ import okhttp3.Response;
 
 public class SentencesActivity extends AppCompatActivity {
     public static OxfordService oxfordService;
-    public static ArrayList<Sentence> list;
-    @Bind(R.id.display_sentences_list_view)
-    ListView mListView;
+    public static ArrayList<Sentence> sentencesList;
+    private WordListAdapter mAdapter;
+    @Bind(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +50,15 @@ public class SentencesActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                list = oxfordService.processAsyncResponse(response);
+                sentencesList = oxfordService.processAsyncResponse(response);
                 SentencesActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String[] array = new String[list.size()];
-                        for (int i = 0; i < array.length; i++) {
-                            array[i] = list.get(i).getInSentence();
-                        }
-                        ArrayAdapter adapter = new ArrayAdapter(SentencesActivity.this,
-                                R.layout.display_sentences_layout, array);
-                        mListView.setAdapter(adapter);
+                        mAdapter = new WordListAdapter(getApplicationContext(), sentencesList);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SentencesActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(false);
                     }
                 });
 

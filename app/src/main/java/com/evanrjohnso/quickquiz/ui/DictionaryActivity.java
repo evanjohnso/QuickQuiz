@@ -35,7 +35,7 @@ public class DictionaryActivity extends AppCompatActivity {
 
         String category = getIntent().getStringExtra("category");
         mCategoryTextView.setText(category + " words");
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.display_sentences_layout, displayProperDictionary(category));
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, displayProperDictionary(category));
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
