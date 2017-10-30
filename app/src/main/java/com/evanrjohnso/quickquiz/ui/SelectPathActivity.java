@@ -2,6 +2,7 @@ package com.evanrjohnso.quickquiz.ui;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,13 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     TextView mMediumWords;
     @Bind(R.id.hard_words)
     TextView mHardWords;
+    @OnClick(R.id.implicit_intent)
+    public void clicked(View v) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

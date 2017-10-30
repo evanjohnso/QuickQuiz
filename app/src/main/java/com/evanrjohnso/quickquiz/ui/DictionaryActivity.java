@@ -8,11 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.R;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,7 +44,6 @@ public class DictionaryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     public String[] displayProperDictionary(String category) {
