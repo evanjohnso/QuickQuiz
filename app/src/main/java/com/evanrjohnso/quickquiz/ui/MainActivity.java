@@ -2,23 +2,22 @@ package com.evanrjohnso.quickquiz.ui;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.R;
-import com.evanrjohnso.quickquiz.services.OxfordService;
 
 import java.util.regex.Pattern;
 
@@ -29,6 +28,8 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int REQUEST_PERMISSION_WRITE = 2345;
     public static final String PHONE_KEY = "phone";
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor preferencesEditor;
     @Bind(R.id.main_app_title)
     TextView mMainAppTitle;
     @Bind(R.id.phone_number)
@@ -41,11 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mUserPhoneNumber.setError("Please enter a valid number!");
             return;
         }
+        addToSharedPreferences(phone);
         Intent intent = new Intent(MainActivity.this, SelectPathActivity.class);
-        intent.putExtra(PHONE_KEY, phone);
+//        intent.putExtra(PHONE_KEY, phone);
         startActivity(intent);
     }
-
     private boolean permissionGranted;
 
     @Override
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mUserPhoneNumber.setText("1234567890");
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        preferencesEditor = mSharedPreferences.edit();
 
         Typeface raleway = Typeface.createFromAsset(getAssets(), "fonts/raleway-black.tff");
         mMainAppTitle.setTypeface(raleway);
@@ -121,5 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
         }
+    }
+    private void addToSharedPreferences(String phone) {
+        preferencesEditor.putString(PHONE_KEY, phone).apply();
     }
 }

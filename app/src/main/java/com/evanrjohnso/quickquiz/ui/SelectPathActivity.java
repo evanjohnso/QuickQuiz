@@ -1,8 +1,10 @@
 package com.evanrjohnso.quickquiz.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +37,7 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent);
         }
     }
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +45,11 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_select_path);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        String phone = intent.getStringExtra(MainActivity.PHONE_KEY);
+//        String phone = intent.getStringExtra(MainActivity.PHONE_KEY);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String phone = mSharedPreferences.getString(MainActivity.PHONE_KEY, null);
         if (phone != null) {
-            Toast.makeText(this, "Thanks for your number " + phone, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Thanks for your number from shared preferences " + phone, Toast.LENGTH_SHORT).show();
         }
 
         Resources res = getResources();
