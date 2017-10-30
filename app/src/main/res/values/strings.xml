@@ -23,4 +23,6 @@
     <string name="register_for_an_account">Register for an account!</string>
     <string name="login">Login!</string>
     <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="password_not_matching">Passwords do not match!</string>
+    <string name="error_invalid_nane">Please enter your name</string>
 </resources>
