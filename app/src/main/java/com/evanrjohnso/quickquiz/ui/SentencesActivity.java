@@ -61,7 +61,6 @@ public class SentencesActivity extends AppCompatActivity {
                         mRecyclerView.setHasFixedSize(false);
                     }
                 });
-
             }
         };
     }

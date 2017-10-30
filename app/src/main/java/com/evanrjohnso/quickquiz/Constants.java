@@ -8,4 +8,5 @@ public class Constants {
     public static final String ENTRIES = "entries";
     public static final String LANGAUGE = "en";
     public static final String SENTENCES = "sentences";
+    public static final String WORDS = "words";
 }

@@ -44,7 +44,7 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_path);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
 //        String phone = intent.getStringExtra(MainActivity.PHONE_KEY);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String phone = mSharedPreferences.getString(MainActivity.PHONE_KEY, null);
