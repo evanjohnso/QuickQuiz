@@ -188,16 +188,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                             createFirebaseUserProfile(task.getResult().getUser());
                         } else {
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-//                            Snackbar.make(mName, "Authentication failed", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                         }
                     }
                 });
     }
 
     private void createFirebaseUserProfile(final FirebaseUser user) {
-
-
         UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
                 .setDisplayName(mName)
                 .build();
