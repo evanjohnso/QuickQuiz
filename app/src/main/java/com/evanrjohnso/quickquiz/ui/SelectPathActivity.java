@@ -7,12 +7,17 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.services.OxfordService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 
@@ -44,8 +49,8 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_path);
         ButterKnife.bind(this);
-//        Intent intent = getIntent();
-//        String phone = intent.getStringExtra(MainActivity.PHONE_KEY);
+        String userId = FirebaseAuth.getInstance()
+                .getCurrentUser().getUid();
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String phone = mSharedPreferences.getString(MainActivity.PHONE_KEY, null);
         if (phone != null) {
@@ -75,5 +80,28 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
             intent.putExtra("category", "hard");
         }
         startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(SelectPathActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

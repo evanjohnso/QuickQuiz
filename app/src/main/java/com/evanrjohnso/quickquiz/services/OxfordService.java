@@ -46,7 +46,6 @@ public class OxfordService {
                 .addPathSegment(inputWord)
                 .addPathSegment(Constants.SENTENCES);
         String requestUrl = urlBuilder.build().toString();
-        Log.v("My RequestUrlBuggHuntin", requestUrl);
 
         Request request = new Request.Builder()
                 .url(requestUrl)
