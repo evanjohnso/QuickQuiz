@@ -57,13 +57,6 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this, "Thanks for your number from shared preferences " + phone, Toast.LENGTH_SHORT).show();
         }
 
-        Resources res = getResources();
-        String textToFill = res.getString(R.string.words_completed);
-
-        mEasyWords.setText(String.format(textToFill, "Easy ", 10, 10));
-        mMediumWords.setText(String.format(textToFill, "Medium", 4, 10));
-        mHardWords.setText(String.format(textToFill, "Hard", 1, 10));
-
         mEasyWords.setOnClickListener(this);
         mMediumWords.setOnClickListener(this);
         mHardWords.setOnClickListener(this);

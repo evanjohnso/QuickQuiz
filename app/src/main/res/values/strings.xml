@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Aussie Oxford</string>
     <string name="nerd_out">Nerd Out!</string>
-    <string name="words_completed">%1$s Words\n%2$d of %3$d completed</string>
     <string name="quizquiz">QuizQuiz</string>
     <string name="enter_your_number">Enter your number!</string>
     <string name="they_have_all_functionality_of_a_non_nested_class_but_with_limited_scope_they_also_have_full_access_to_the_class_in_which_they_are_nested">They have all functionality of a non-nested class, but with limited scope. They also have full access to the class in which they are nested.</string>

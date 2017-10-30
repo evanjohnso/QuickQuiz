@@ -21,9 +21,9 @@
         android:theme="@style/AppTheme">
 
         <!-- android:theme="@style/AppTheme" -->
-        <activity
-            android:name=".ui.MainActivity"
-            android:theme="@style/NoActionBarTheme"></activity>
+        <!--<activity-->
+            <!--android:name=".ui.MainActivity"-->
+            <!--android:theme="@style/NoActionBarTheme"></activity>-->
         <activity android:name=".ui.SelectPathActivity" />
         <activity android:name=".ui.DictionaryActivity">
             <meta-data
