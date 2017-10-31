@@ -36,7 +36,6 @@ public class DictionaryActivity extends AppCompatActivity {
 //    ListView mListView;
 //    @Bind(R.id.categoryTextView)
 //    TextView mCategoryTextView;
-    public static final String WORD_KEY = "word";
 
     private DatabaseReference firebaseRef;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
@@ -58,15 +57,7 @@ public class DictionaryActivity extends AppCompatActivity {
 //        firebaseRef.addListenerForSingleValueEvent(createValueEventListener());
         setUpFirebaseAdapter();
 
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                TextView tv = (TextView) view;
-//                Intent intent = new Intent(DictionaryActivity.this, SentencesActivity.class);
-//                intent.putExtra(WORD_KEY, tv.getText().toString());
-//                startActivity(intent);
-//            }
-//        });
+
     }
 
 
@@ -86,11 +77,6 @@ public class DictionaryActivity extends AppCompatActivity {
 //                Log.v("words canceled", "load words failed");
 //            }
 //        };
-//    }
-
-//    private void createArrayAdapater(List<String> wordArray) {
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, wordArray);
-//        mListView.setAdapter(adapter);
 //    }
 
 

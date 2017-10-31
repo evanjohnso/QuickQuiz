@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.adapters.WordListAdapter;
 import com.evanrjohnso.quickquiz.models.Sentence;
@@ -35,7 +36,7 @@ public class SentencesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String word = intent.getStringExtra(DictionaryActivity.WORD_KEY);
+        String word = intent.getStringExtra(Constants.WORD_KEY);
         Toast.makeText(this, word, Toast.LENGTH_SHORT).show();
         oxfordService = new OxfordService();
         oxfordService.grabSentence(word, sentenceCallback());

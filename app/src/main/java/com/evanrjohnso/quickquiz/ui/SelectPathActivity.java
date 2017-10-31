@@ -66,7 +66,6 @@ public class SelectPathActivity extends AppCompatActivity {
 //    }
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +85,6 @@ public class SelectPathActivity extends AppCompatActivity {
                 }
             }
         };
-
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //TODO erase shared preferences
     }
 
     private void categoryClicked(String category) {

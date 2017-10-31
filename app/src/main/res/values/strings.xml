@@ -24,4 +24,7 @@
     <string name="title_activity_create_account">CreateAccountActivity</string>
     <string name="password_not_matching">Passwords do not match!</string>
     <string name="error_invalid_nane">Please enter your name</string>
+    <string name="sat_words">SAT Words!</string>
+    <string name="lsat_words">LSAT Words!</string>
+    <string name="gre_words">GRE Words!</string>
 </resources>
