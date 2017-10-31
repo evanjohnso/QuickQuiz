@@ -17,36 +17,40 @@ import android.widget.Toast;
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
 
-import com.evanrjohnso.quickquiz.services.ReadStringFromFileLineByLine;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SelectPathActivity extends AppCompatActivity implements View.OnClickListener {
-    @Bind(R.id.easy_word)
-    TextView mEasyWords;
-    @Bind(R.id.medium_words)
-    TextView mMediumWords;
-    @Bind(R.id.hard_words)
-    TextView mHardWords;
+public class SelectPathActivity extends AppCompatActivity {
+    @OnClick(R.id.lsat_words)
+    public void clicked() {
+        categoryClicked(Constants.FIREBASE_LSAT);
+    }
+    @OnClick(R.id.sat_words)
+    public void clicked1() {
+        categoryClicked(Constants.FIREBASE_SAT);
+    }
+    @OnClick(R.id.gre_words)
+    public void clicked2() {
+        categoryClicked(Constants.FIREBASE_GRE);
+    }
+
     @OnClick(R.id.implicit_intent)
     public void clicked(View v) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
+        } else {
+            Toast.makeText(this, "This phone does not seem to have a browser!", Toast.LENGTH_SHORT).show();
         }
     }
 //    @OnClick(R.id.populate_database)
@@ -60,9 +64,6 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
 //        categoryFireRef.updateChildren(wordMapForFirebase);
 //        root.updateChildren(wordMapForFirebase);
 //    }
-
-
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private SharedPreferences mSharedPreferences;
@@ -86,29 +87,13 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
             }
         };
 
-
-
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String phone = mSharedPreferences.getString(MainActivity.PHONE_KEY, null);
-        if (phone != null) {
-            Toast.makeText(this, "Thanks for your number from shared preferences " + phone, Toast.LENGTH_SHORT).show();
-        }
-
-        mEasyWords.setOnClickListener(this);
-        mMediumWords.setOnClickListener(this);
-        mHardWords.setOnClickListener(this);
+        //TODO erase shared preferences
     }
 
-    @Override
-    public void onClick(View view) {
+    private void categoryClicked(String category) {
         Intent intent = new Intent(SelectPathActivity.this, DictionaryActivity.class);
-        if (view == mEasyWords) {
-            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_LSAT);
-        } else if (view == mMediumWords) {
-            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_SAT);
-        } else if (view == mHardWords) {
-            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_GRE);
-        }
+        intent.putExtra(Constants.INTENT_CATEGORY, category);
         startActivity(intent);
     }
     @Override
