@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.services.OxfordService;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,11 +105,11 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         Intent intent = new Intent(SelectPathActivity.this, DictionaryActivity.class);
         if (view == mEasyWords) {
-            intent.putExtra("category", "easy");
+            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_EASIER);
         } else if (view == mMediumWords) {
-            intent.putExtra("category", "medium");
+            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_SAT);
         } else if (view == mHardWords) {
-            intent.putExtra("category", "hard");
+            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_GRE);
         }
         startActivity(intent);
     }

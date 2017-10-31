@@ -9,4 +9,8 @@ public class Constants {
     public static final String LANGAUGE = "en";
     public static final String SENTENCES = "sentences";
     public static final String WORDS = "words";
+    public static final String FIREBASE_GRE = "GRE words";
+    public static final String FIREBASE_SAT= "SAT words";
+    public static final String FIREBASE_EASIER= "easier words";
+    public static final String INTENT_CATEGORY = "word Bank Selected";
 }
