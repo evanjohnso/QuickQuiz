@@ -2,7 +2,6 @@ package com.evanrjohnso.quickquiz.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -17,14 +16,17 @@ import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
-import com.evanrjohnso.quickquiz.services.OxfordService;
+
+import com.evanrjohnso.quickquiz.services.ReadStringFromFileLineByLine;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,9 +34,6 @@ import java.util.Objects;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class SelectPathActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.easy_word)
@@ -52,18 +51,17 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     }
 //    @OnClick(R.id.populate_database)
 //    public void populateDB(View v) {
-//        DatabaseReference satDB = FirebaseDatabase.getInstance().getReference().child("SAT words");
+//        Map<String, Object> wordMapForFirebase = readFile("words/GRE.txt");
+//        //change the file name && Constants.FIREBASE_... depending on the data to be added
+//        DatabaseReference categoryFireRef = FirebaseDatabase.getInstance()
+//                .getReference().child(Constants.FIREBASE_GRE);
 //        DatabaseReference root = FirebaseDatabase.getInstance()
-//
-//                .getReference().child("words");
-//        Map<String, Object> map = new HashMap<>();
-//        for (String word: greWords) {
-//            map.put(word,word);
-//        }
-//        satDB.updateChildren(map);
-//        root.updateChildren(map);
+//                .getReference().child(Constants.WORDS);
+//        categoryFireRef.updateChildren(wordMapForFirebase);
+//        root.updateChildren(wordMapForFirebase);
 //    }
-//    private String[] greWords = new String[]{"symbiotic", "disturbance", "decide", "affection", "setup", "earth"};
+
+
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -105,7 +103,7 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         Intent intent = new Intent(SelectPathActivity.this, DictionaryActivity.class);
         if (view == mEasyWords) {
-            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_EASIER);
+            intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_LSAT);
         } else if (view == mMediumWords) {
             intent.putExtra(Constants.INTENT_CATEGORY, Constants.FIREBASE_SAT);
         } else if (view == mHardWords) {
@@ -149,5 +147,29 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+    private Map<String, Object> readFile(String filePath) {
+        BufferedReader reader = null;
+        Map<String, Object> map = new HashMap<>();
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open(filePath)));
+
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                map.put(mLine, mLine);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader  != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return map;
     }
 }

@@ -11,6 +11,6 @@ public class Constants {
     public static final String WORDS = "words";
     public static final String FIREBASE_GRE = "GRE words";
     public static final String FIREBASE_SAT= "SAT words";
-    public static final String FIREBASE_EASIER= "easier words";
+    public static final String FIREBASE_LSAT= "LSAT words";
     public static final String INTENT_CATEGORY = "word Bank Selected";
 }
