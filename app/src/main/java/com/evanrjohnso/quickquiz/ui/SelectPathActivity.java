@@ -19,8 +19,14 @@ import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.services.OxfordService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +49,20 @@ public class SelectPathActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent);
         }
     }
+//    @OnClick(R.id.populate_database)
+//    public void populateDB(View v) {
+//        DatabaseReference satDB = FirebaseDatabase.getInstance().getReference().child("SAT words");
+//        DatabaseReference root = FirebaseDatabase.getInstance()
+//
+//                .getReference().child("words");
+//        Map<String, Object> map = new HashMap<>();
+//        for (String word: greWords) {
+//            map.put(word,word);
+//        }
+//        satDB.updateChildren(map);
+//        root.updateChildren(map);
+//    }
+//    private String[] greWords = new String[]{"symbiotic", "disturbance", "decide", "affection", "setup", "earth"};
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
