@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.Constants;
@@ -37,7 +38,6 @@ public class SentencesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String word = intent.getStringExtra(Constants.WORD_KEY);
-        Toast.makeText(this, word, Toast.LENGTH_SHORT).show();
         oxfordService = new OxfordService();
         oxfordService.grabSentence(word, sentenceCallback());
     }
@@ -64,5 +64,14 @@ public class SentencesActivity extends AppCompatActivity {
                 });
             }
         };
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

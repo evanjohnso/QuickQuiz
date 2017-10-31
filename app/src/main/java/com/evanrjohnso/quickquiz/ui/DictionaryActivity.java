@@ -47,38 +47,14 @@ public class DictionaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sentences);
         ButterKnife.bind(this);
-
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
         String category = getIntent().getStringExtra(Constants.INTENT_CATEGORY);
-//        mCategoryTextView.setText(category);
-
         firebaseRef = FirebaseDatabase.getInstance()
                 .getReference().child(category);
 
-//        firebaseRef.addListenerForSingleValueEvent(createValueEventListener());
         setUpFirebaseAdapter();
 
-
     }
-
-
-//    private ValueEventListener createValueEventListener() {
-//        return new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<String> wordsArray = new ArrayList<>();
-//                Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
-//                for (String key: data.keySet()) {
-//                    wordsArray.add(key);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.v("words canceled", "load words failed");
-//            }
-//        };
-//    }
-
 
     private void setUpFirebaseAdapter() {
         mFirebaseAdapter = new FirebaseRecyclerAdapter<String, FirebaseWordViewHolder>
