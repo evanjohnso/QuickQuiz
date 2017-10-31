@@ -3,6 +3,8 @@ package com.evanrjohnso.quickquiz.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
+import com.evanrjohnso.quickquiz.adapters.FirebaseWordViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,58 +32,89 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DictionaryActivity extends AppCompatActivity {
-    @Bind(R.id.listView)
-    ListView mListView;
-    @Bind(R.id.categoryTextView)
-    TextView mCategoryTextView;
+//    @Bind(R.id.listView)
+//    ListView mListView;
+//    @Bind(R.id.categoryTextView)
+//    TextView mCategoryTextView;
     public static final String WORD_KEY = "word";
+
+    private DatabaseReference firebaseRef;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    @Bind(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dictionary);
+        setContentView(R.layout.activity_sentences);
         ButterKnife.bind(this);
 
         String category = getIntent().getStringExtra(Constants.INTENT_CATEGORY);
-        mCategoryTextView.setText(category + " words");
-        DatabaseReference ref = FirebaseDatabase.getInstance()
+//        mCategoryTextView.setText(category);
+
+        firebaseRef = FirebaseDatabase.getInstance()
                 .getReference().child(category);
 
-        ref.addListenerForSingleValueEvent(createValueEventListener());
+//        firebaseRef.addListenerForSingleValueEvent(createValueEventListener());
+        setUpFirebaseAdapter();
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TextView tv = (TextView) view;
-                Intent intent = new Intent(DictionaryActivity.this, SentencesActivity.class);
-                intent.putExtra(WORD_KEY, tv.getText().toString());
-                startActivity(intent);
-            }
-        });
+//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                TextView tv = (TextView) view;
+//                Intent intent = new Intent(DictionaryActivity.this, SentencesActivity.class);
+//                intent.putExtra(WORD_KEY, tv.getText().toString());
+//                startActivity(intent);
+//            }
+//        });
     }
 
 
-    private ValueEventListener createValueEventListener() {
-        return new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> wordsArray = new ArrayList<>();
-                Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
-                for (String key: data.keySet()) {
-                    wordsArray.add(key);
-                }
-                createArrayAdapater(wordsArray);
-            }
+//    private ValueEventListener createValueEventListener() {
+//        return new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                List<String> wordsArray = new ArrayList<>();
+//                Map<String, Object> data = (Map<String, Object>) dataSnapshot.getValue();
+//                for (String key: data.keySet()) {
+//                    wordsArray.add(key);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.v("words canceled", "load words failed");
+//            }
+//        };
+//    }
+
+//    private void createArrayAdapater(List<String> wordArray) {
+//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, wordArray);
+//        mListView.setAdapter(adapter);
+//    }
+
+
+    private void setUpFirebaseAdapter() {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<String, FirebaseWordViewHolder>
+                (String.class,
+                        R.layout.activity_dictionary,
+                        FirebaseWordViewHolder.class,
+                        firebaseRef) {
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.v("words canceled", "load words failed");
+            protected void populateViewHolder(FirebaseWordViewHolder viewHolder,
+                                              String wordModel, int position) {
+                viewHolder.bindWord(wordModel);
             }
         };
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(mFirebaseAdapter);
     }
 
-    private void createArrayAdapater(List<String> wordArray) {
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, wordArray);
-        mListView.setAdapter(adapter);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
     }
 }

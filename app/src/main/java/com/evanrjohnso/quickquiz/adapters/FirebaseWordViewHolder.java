@@ -3,6 +3,7 @@ package com.evanrjohnso.quickquiz.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.evanrjohnso.quickquiz.R;
 import com.google.firebase.database.DatabaseReference;
@@ -23,13 +24,14 @@ public class FirebaseWordViewHolder extends RecyclerView.ViewHolder implements V
     }
 
     public void bindWord(String word) {
-
+        TextView text = (TextView) mView.findViewById(R.id.wordTextView);
+        text.setText(word);
     }
 
     @Override
     public void onClick(View view) {
-        final ArrayList<String> words = new ArrayList<>();
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child()
+//        final ArrayList<String> words = new ArrayList<>();
+////        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child()
     }
 
 
