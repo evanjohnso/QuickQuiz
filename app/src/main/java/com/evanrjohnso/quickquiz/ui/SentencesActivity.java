@@ -34,8 +34,8 @@ public class SentencesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sentences);
-        ButterKnife.bind(this);
-
+//        ButterKnife.bind(this);
+//
 //        Intent intent = getIntent();
 //        String word = intent.getStringExtra(Constants.WORD_KEY);
 //        oxfordService = new OxfordService();
@@ -65,6 +65,13 @@ public class SentencesActivity extends AppCompatActivity {
 //            }
 //        };
 //    }
-
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            finish();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 }

@@ -43,7 +43,6 @@ public class DictionaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary_recycler);
         ButterKnife.bind(this);
-        Log.v("onCreate", "dictionaryActivity");
         String category = getIntent().getStringExtra(Constants.INTENT_CATEGORY);
         firebaseRef = FirebaseDatabase.getInstance()
                 .getReference().child(category);

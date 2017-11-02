@@ -40,7 +40,6 @@ public class FirebaseWordViewHolder extends RecyclerView.ViewHolder implements V
     public void onClick(View view) {
         TextView currentWord = (TextView) mView.findViewById(R.id.wordTextView);
         String chosenWord = currentWord.getText().toString();
-        Toast.makeText(mContext, chosenWord, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(mContext, SentencesActivity.class);
         intent.putExtra(Constants.WORD_KEY, chosenWord);
         mContext.startActivity(intent);

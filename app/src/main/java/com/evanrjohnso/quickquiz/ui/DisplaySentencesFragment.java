@@ -36,14 +36,12 @@ public class DisplaySentencesFragment extends Fragment {
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
-
-    public DisplaySentencesFragment() {
-        // Required empty public constructor
-    }
+    public DisplaySentencesFragment() { }  // Required empty public constructor
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -55,7 +53,6 @@ public class DisplaySentencesFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String word = intent.getStringExtra(Constants.WORD_KEY);
         oxfordService = new OxfordService();
-        Log.v("serviceWord", word);
         oxfordService.grabSentence(word, sentenceCallback());
         return view;
     }
@@ -86,6 +83,7 @@ public class DisplaySentencesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.v("back button", "back");
         if (item.getItemId() == android.R.id.home) {
             getActivity().finish();
             return true;
