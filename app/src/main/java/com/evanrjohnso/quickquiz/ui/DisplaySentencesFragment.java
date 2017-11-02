@@ -83,7 +83,6 @@ public class DisplaySentencesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.v("back button", "back");
         if (item.getItemId() == android.R.id.home) {
             getActivity().finish();
             return true;
