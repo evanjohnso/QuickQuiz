@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
@@ -32,11 +33,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DictionaryActivity extends AppCompatActivity {
-//    @Bind(R.id.listView)
-//    ListView mListView;
-//    @Bind(R.id.categoryTextView)
-//    TextView mCategoryTextView;
-
     private DatabaseReference firebaseRef;
     private FirebaseRecyclerAdapter mFirebaseAdapter;
     @Bind(R.id.recyclerView)
@@ -45,15 +41,14 @@ public class DictionaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sentences);
+        setContentView(R.layout.activity_dictionary_recycler);
         ButterKnife.bind(this);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
+        Log.v("onCreate", "dictionaryActivity");
         String category = getIntent().getStringExtra(Constants.INTENT_CATEGORY);
         firebaseRef = FirebaseDatabase.getInstance()
                 .getReference().child(category);
 
         setUpFirebaseAdapter();
-
     }
 
     private void setUpFirebaseAdapter() {

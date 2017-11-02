@@ -27,4 +27,7 @@
     <string name="sat_words">SAT Words!</string>
     <string name="lsat_words">LSAT Words!</string>
     <string name="gre_words">GRE Words!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

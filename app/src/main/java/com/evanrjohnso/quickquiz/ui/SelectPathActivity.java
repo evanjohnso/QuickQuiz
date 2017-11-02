@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -89,6 +90,7 @@ public class SelectPathActivity extends AppCompatActivity {
 
     private void categoryClicked(String category) {
         Intent intent = new Intent(SelectPathActivity.this, DictionaryActivity.class);
+        Log.v("categoryClicked", category);
         intent.putExtra(Constants.INTENT_CATEGORY, category);
         startActivity(intent);
     }

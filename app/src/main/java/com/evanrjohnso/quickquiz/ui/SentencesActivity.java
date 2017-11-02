@@ -24,11 +24,11 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class SentencesActivity extends AppCompatActivity {
-    public static OxfordService oxfordService;
-    public static ArrayList<Sentence> sentencesList;
-    private WordListAdapter mAdapter;
-    @Bind(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+//    public static OxfordService oxfordService;
+//    public static ArrayList<Sentence> sentencesList;
+//    private WordListAdapter mAdapter;
+//    @Bind(R.id.recyclerView)
+//    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,42 +36,35 @@ public class SentencesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sentences);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        String word = intent.getStringExtra(Constants.WORD_KEY);
-        oxfordService = new OxfordService();
-        oxfordService.grabSentence(word, sentenceCallback());
+//        Intent intent = getIntent();
+//        String word = intent.getStringExtra(Constants.WORD_KEY);
+//        oxfordService = new OxfordService();
+//        oxfordService.grabSentence(word, sentenceCallback());
     }
 
-    private Callback sentenceCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+//    private Callback sentenceCallback() {
+//        return new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                sentencesList = oxfordService.processAsyncResponse(response);
+//                SentencesActivity.this.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mAdapter = new WordListAdapter(getApplicationContext(), sentencesList);
+//                        mRecyclerView.setAdapter(mAdapter);
+//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SentencesActivity.this);
+//                        mRecyclerView.setLayoutManager(layoutManager);
+//                        mRecyclerView.setHasFixedSize(false);
+//                    }
+//                });
+//            }
+//        };
+//    }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                sentencesList = oxfordService.processAsyncResponse(response);
-                SentencesActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter = new WordListAdapter(getApplicationContext(), sentencesList);
-                        mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SentencesActivity.this);
-                        mRecyclerView.setLayoutManager(layoutManager);
-                        mRecyclerView.setHasFixedSize(false);
-                    }
-                });
-            }
-        };
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
