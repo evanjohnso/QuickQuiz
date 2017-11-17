@@ -77,23 +77,23 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/gre_words"
         app:layout_constraintVertical_bias="0.024" />
-    <!--<TextView-->
-        <!--style="@style/Base.Widget.AppCompat.Button"-->
-        <!--android:id="@+id/populate_database"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Populate database"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textSize="24sp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/implicit_intent"-->
-        <!--app:layout_constraintVertical_bias="0.427" />-->
+    <TextView
+        style="@style/Base.Widget.AppCompat.Button"
+        android:id="@+id/populate_database"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Populate database"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/implicit_intent"
+        app:layout_constraintVertical_bias="0.427" />
 
 
 </android.support.constraint.ConstraintLayout>

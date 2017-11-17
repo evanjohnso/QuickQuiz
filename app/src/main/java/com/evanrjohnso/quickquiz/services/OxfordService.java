@@ -1,6 +1,7 @@
 package com.evanrjohnso.quickquiz.services;
 
 
+
 import android.util.Log;
 
 import com.evanrjohnso.quickquiz.Constants;
@@ -57,13 +58,13 @@ public class OxfordService {
                 .addPathSegment(Constants.ENGLISH_LANGUAGE)
                 .addPathSegment(inputWord);
         String requestUrl = urlBuilder.build().toString();
-        System.out.println(requestUrl);
 
         Request request = new Request.Builder()
                 .url(requestUrl)
                 .addHeader("app_id", Constants.OXFORD_ID)
                 .addHeader("app_key", Constants.OXFORD_KEY)
                 .build();
+
         Call call = client.newCall(request);
         call.enqueue(definitionCallback());
     }
@@ -102,19 +103,57 @@ public class OxfordService {
     }
 
     private Callback definitionCallback() {
-        System.out.println("callback");
         return new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                System.out.println("failed");
-//                e.printStackTrace();
+                e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                System.out.println("passed");
-//                String asJSON = response.body().string();
-//                System.out.println(asJSON);
+                String responseAsString = response.body().string();
+                try {
+                    JSONObject json = new JSONObject(responseAsString);
+
+                    JSONObject results = (JSONObject) json.getJSONArray("results").get(0);
+                    String word = (String) results.get("word");
+                    Log.v("wordReturned", word);
+
+                    JSONArray myArray = results.getJSONArray("lexicalEntries")
+                            .getJSONObject(0)
+                            .getJSONArray("entries");
+
+                    JSONArray entymologies = myArray.getJSONObject(0)
+                            .getJSONArray("etymologies");
+                    for (int i=0; i< entymologies.length(); i++) {
+                        Log.v("entymology", (String) entymologies.get(i));
+                    }
+
+                    JSONArray definitions = myArray.getJSONObject(0)
+                            .getJSONArray("senses")
+                            .getJSONObject(0)
+                            .getJSONArray("definitions");
+
+                    for (int i=0; i< definitions.length(); i++) {
+                        Log.v("defs", (String) definitions.get(i));
+                    }
+
+
+                    JSONArray examples = myArray.getJSONObject(0)
+                            .getJSONArray("senses")
+                            .getJSONObject(0)
+                            .getJSONArray("examples");
+
+                    for (int i=0; i< examples.length(); i++) {
+                        Log.v("examples", (String) examples.getJSONObject(i).get("text"));
+                    }
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }

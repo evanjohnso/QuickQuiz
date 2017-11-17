@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
 
+import com.evanrjohnso.quickquiz.services.OxfordService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -65,6 +66,11 @@ public class SelectPathActivity extends AppCompatActivity {
 //        categoryFireRef.updateChildren(wordMapForFirebase);
 //        root.updateChildren(wordMapForFirebase);
 //    }
+    @OnClick(R.id.populate_database)
+    public void doitt(View view) {
+        OxfordService mine = new OxfordService();
+        mine.getDefinitionFromOxford("dictionary");
+    }
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
