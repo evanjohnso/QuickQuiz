@@ -6,7 +6,7 @@ public class Constants {
     public static final String OXFORD_KEY = "e55f20de59d2b1de87e77ec68b907613";
     public static final String BASE_URL = "https://od-api.oxforddictionaries.com/api/v1";
     public static final String ENTRIES = "entries";
-    public static final String LANGAUGE = "en";
+    public static final String ENGLISH_LANGUAGE = "en";
     public static final String SENTENCES = "sentences";
     public static final String WORDS = "words";
     public static final String FIREBASE_GRE = "GRE words";

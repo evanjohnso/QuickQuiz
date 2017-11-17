@@ -1,5 +1,7 @@
 package com.evanrjohnso.quickquiz;
 
+import android.util.Log;
+
 import com.evanrjohnso.quickquiz.services.OxfordService;
 
 import org.junit.After;
@@ -23,6 +25,12 @@ public class OxfordServiceTest {
     @Test
     public void grabSentence() throws Exception {
 //        oxford.grabSentence("hello");
+    }
+
+    @Test
+    public void getDefinition() throws Exception {
+        oxford.getDefinitionFromOxford("destination");
+//        Log.v("hello", "HEYY");
     }
 
     @Test

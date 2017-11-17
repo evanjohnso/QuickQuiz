@@ -1,9 +1,6 @@
 package com.evanrjohnso.quickquiz.services;
 
 
-import android.app.DownloadManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.ArraySet;
 import android.util.Log;
 
 import com.evanrjohnso.quickquiz.Constants;
@@ -19,11 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,7 +35,7 @@ public class OxfordService {
 
         urlBuilder = HttpUrl.parse(Constants.BASE_URL).newBuilder()
                 .addPathSegment(Constants.ENTRIES)
-                .addPathSegment(Constants.LANGAUGE)
+                .addPathSegment(Constants.ENGLISH_LANGUAGE)
                 .addPathSegment(inputWord)
                 .addPathSegment(Constants.SENTENCES);
         String requestUrl = urlBuilder.build().toString();
@@ -56,6 +49,24 @@ public class OxfordService {
         call.enqueue(callback);
     }
 
+    public void getDefinitionFromOxford(String inputWord) {
+        client = new OkHttpClient.Builder().build();
+
+        urlBuilder = HttpUrl.parse(Constants.BASE_URL).newBuilder()
+                .addPathSegment(Constants.ENTRIES)
+                .addPathSegment(Constants.ENGLISH_LANGUAGE)
+                .addPathSegment(inputWord);
+        String requestUrl = urlBuilder.build().toString();
+        System.out.println(requestUrl);
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .addHeader("app_id", Constants.OXFORD_ID)
+                .addHeader("app_key", Constants.OXFORD_KEY)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(definitionCallback());
+    }
     public ArrayList<Sentence> processAsyncResponse(Response response) {
         ArrayList<Sentence> sentences = new ArrayList<>();
         try {
@@ -88,6 +99,24 @@ public class OxfordService {
         wordMap.put(word,word);
         firebaseDatabase.child(Constants.WORDS).updateChildren(wordMap); // add word to words node
         firebaseDatabase.child(Constants.SENTENCES).child(word).setValue(Arrays.asList(sentences));
+    }
+
+    private Callback definitionCallback() {
+        System.out.println("callback");
+        return new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("failed");
+//                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                System.out.println("passed");
+//                String asJSON = response.body().string();
+//                System.out.println(asJSON);
+            }
+        };
     }
 
 

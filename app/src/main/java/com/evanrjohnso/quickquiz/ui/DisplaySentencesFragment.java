@@ -81,6 +81,21 @@ public class DisplaySentencesFragment extends Fragment {
         };
     }
 
+//    private Callback definitionCallkback() {
+//        return new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                String asJSON = response.body().string();
+//                System.out.println(asJSON);
+//            }
+//        };
+//    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
