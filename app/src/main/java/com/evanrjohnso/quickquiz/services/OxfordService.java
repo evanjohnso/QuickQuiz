@@ -144,10 +144,10 @@ public class OxfordService {
                     for (int i=0; i< examples.length(); i++) {
                         examps.add(examples.getString(i));
                     }
-                    output.put("word", word);
-                    output.put("entymology", entymolgy);
-                    output.put("definitions", definitions);
-                    output.put("examples", examples);
+                    output.put(Constants.WORD_KEY, word);
+                    output.put(Constants.ENTOMOLOGY, entymolgy);
+                    output.put(Constants.DEFINITIONS, defs);
+                    output.put(Constants.EXAMPLES, examps);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

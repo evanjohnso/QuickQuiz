@@ -53,7 +53,6 @@ public class DictionaryActivity extends AppCompatActivity implements OnStartDrag
         String category = getIntent().getStringExtra(Constants.INTENT_CATEGORY);
         firebaseRef = FirebaseDatabase.getInstance()
                 .getReference().child(category);
-
         setUpFirebaseAdapter();
     }
 

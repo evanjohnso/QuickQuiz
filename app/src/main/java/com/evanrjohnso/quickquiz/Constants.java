@@ -14,4 +14,7 @@ public class Constants {
     public static final String FIREBASE_LSAT= "LSAT words";
     public static final String INTENT_CATEGORY = "word Bank Selected";
     public static final String WORD_KEY = "word";
+    public static final String ENTOMOLOGY = "entomology";
+    public static final String DEFINITIONS = "definitions";
+    public static final String EXAMPLES = "examples";
 }

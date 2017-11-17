@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.evanrjohnso.quickquiz.Constants;
 import com.evanrjohnso.quickquiz.R;
 import com.evanrjohnso.quickquiz.ui.SentencesActivity;
+import com.evanrjohnso.quickquiz.ui.WordDefinition;
 
 public class FirebaseWordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     View mView;
@@ -32,7 +33,8 @@ public class FirebaseWordViewHolder extends RecyclerView.ViewHolder implements V
     public void onClick(View view) {
         TextView currentWord = (TextView) mView.findViewById(R.id.wordTextView);
         String chosenWord = currentWord.getText().toString();
-        Intent intent = new Intent(mContext, SentencesActivity.class);
+//        Intent intent = new Intent(mContext, SentencesActivity.class);
+        Intent intent = new Intent(mContext, WordDefinition.class);
         intent.putExtra(Constants.WORD_KEY, chosenWord);
         mContext.startActivity(intent);
     }

@@ -71,32 +71,9 @@ public class SelectPathActivity extends AppCompatActivity {
 //        categoryFireRef.updateChildren(wordMapForFirebase);
 //        root.updateChildren(wordMapForFirebase);
 //    }
-    @OnClick(R.id.populate_database)
-    public void doitt(View view) {
-        mine = new OxfordService();
-        mine.getDefinitionFromOxford("dictionary", definitionCallback());
-    }
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private OxfordService mine;
-
-    private Callback definitionCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                HashMap<String, Object> definition = mine.processAsyncDefinitionCall(response);
-                Iterator it = definition.entrySet().iterator();
-                while (it.hasNext()) {
-                    Log.v("outputs", it.next().toString());
-                }
-            }
-        };
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
