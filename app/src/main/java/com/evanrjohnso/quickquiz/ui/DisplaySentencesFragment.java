@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +51,7 @@ public class DisplaySentencesFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String word = intent.getStringExtra(Constants.WORD_KEY);
         oxfordService = new OxfordService();
-        oxfordService.grabSentence(word, sentenceCallback());
+        oxfordService.getSentenceFromOxford(word, sentenceCallback());
         return view;
     }
 
@@ -66,7 +64,7 @@ public class DisplaySentencesFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                sentencesList = oxfordService.processAsyncResponse(response);
+                sentencesList = oxfordService.processAsyncSentenceCall(response);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

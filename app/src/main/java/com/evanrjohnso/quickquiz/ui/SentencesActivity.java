@@ -39,7 +39,7 @@ public class SentencesActivity extends AppCompatActivity {
 //        Intent intent = getIntent();
 //        String word = intent.getStringExtra(Constants.WORD_KEY);
 //        oxfordService = new OxfordService();
-//        oxfordService.grabSentence(word, sentenceCallback());
+//        oxfordService.getSentenceFromOxford(word, sentenceCallback());
     }
 
 //    private Callback sentenceCallback() {
@@ -51,7 +51,7 @@ public class SentencesActivity extends AppCompatActivity {
 //
 //            @Override
 //            public void onResponse(Call call, Response response) throws IOException {
-//                sentencesList = oxfordService.processAsyncResponse(response);
+//                sentencesList = oxfordService.processAsyncSentenceCall(response);
 //                SentencesActivity.this.runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {

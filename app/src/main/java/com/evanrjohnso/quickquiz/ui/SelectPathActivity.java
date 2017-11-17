@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,11 +27,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class SelectPathActivity extends AppCompatActivity {
     @OnClick(R.id.lsat_words)
@@ -68,11 +73,30 @@ public class SelectPathActivity extends AppCompatActivity {
 //    }
     @OnClick(R.id.populate_database)
     public void doitt(View view) {
-        OxfordService mine = new OxfordService();
-        mine.getDefinitionFromOxford("dictionary");
+        mine = new OxfordService();
+        mine.getDefinitionFromOxford("dictionary", definitionCallback());
     }
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private OxfordService mine;
+
+    private Callback definitionCallback() {
+        return new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                HashMap<String, Object> definition = mine.processAsyncDefinitionCall(response);
+                Iterator it = definition.entrySet().iterator();
+                while (it.hasNext()) {
+                    Log.v("outputs", it.next().toString());
+                }
+            }
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -31,7 +32,7 @@ public class OxfordService {
     private static HttpUrl.Builder urlBuilder;
     private DatabaseReference firebaseDatabase;
 
-    public void grabSentence(String inputWord, Callback callback) {
+    public void getSentenceFromOxford(String inputWord, Callback callback) {
         client = new OkHttpClient.Builder().build();
 
         urlBuilder = HttpUrl.parse(Constants.BASE_URL).newBuilder()
@@ -50,7 +51,7 @@ public class OxfordService {
         call.enqueue(callback);
     }
 
-    public void getDefinitionFromOxford(String inputWord) {
+    public void getDefinitionFromOxford(String inputWord, Callback callback) {
         client = new OkHttpClient.Builder().build();
 
         urlBuilder = HttpUrl.parse(Constants.BASE_URL).newBuilder()
@@ -66,9 +67,10 @@ public class OxfordService {
                 .build();
 
         Call call = client.newCall(request);
-        call.enqueue(definitionCallback());
+        call.enqueue(callback);
     }
-    public ArrayList<Sentence> processAsyncResponse(Response response) {
+
+    public ArrayList<Sentence> processAsyncSentenceCall(Response response) {
         ArrayList<Sentence> sentences = new ArrayList<>();
         try {
             String responseAsJSON = response.body().string();
@@ -102,61 +104,53 @@ public class OxfordService {
         firebaseDatabase.child(Constants.SENTENCES).child(word).setValue(Arrays.asList(sentences));
     }
 
-    private Callback definitionCallback() {
-        return new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+    public HashMap<String, Object> processAsyncDefinitionCall(Response response) throws IOException {
                 String responseAsString = response.body().string();
+                HashMap<String, Object> output = new HashMap<>();
+                String word;
+                ArrayList<String> entymolgy = new ArrayList();
+                ArrayList<String> defs = new ArrayList();
+                ArrayList<String> examps = new ArrayList();
+
                 try {
                     JSONObject json = new JSONObject(responseAsString);
-
-                    JSONObject results = (JSONObject) json.getJSONArray("results").get(0);
-                    String word = (String) results.get("word");
-                    Log.v("wordReturned", word);
-
+                    JSONObject results = (JSONObject) json
+                            .getJSONArray("results")
+                            .get(0);
+                    word = (String) results.get("word");
                     JSONArray myArray = results.getJSONArray("lexicalEntries")
                             .getJSONObject(0)
                             .getJSONArray("entries");
-
-                    JSONArray entymologies = myArray.getJSONObject(0)
+                    JSONArray entymologies = myArray
+                            .getJSONObject(0)
                             .getJSONArray("etymologies");
-                    for (int i=0; i< entymologies.length(); i++) {
-                        Log.v("entymology", (String) entymologies.get(i));
-                    }
-
-                    JSONArray definitions = myArray.getJSONObject(0)
+                    JSONArray definitions = myArray
+                            .getJSONObject(0)
                             .getJSONArray("senses")
                             .getJSONObject(0)
                             .getJSONArray("definitions");
-
-                    for (int i=0; i< definitions.length(); i++) {
-                        Log.v("defs", (String) definitions.get(i));
-                    }
-
-
-                    JSONArray examples = myArray.getJSONObject(0)
+                    JSONArray examples = myArray
+                            .getJSONObject(0)
                             .getJSONArray("senses")
                             .getJSONObject(0)
                             .getJSONArray("examples");
 
-                    for (int i=0; i< examples.length(); i++) {
-                        Log.v("examples", (String) examples.getJSONObject(i).get("text"));
+                    for (int i=0; i< entymologies.length(); i++) {
+                        entymolgy.add(entymologies.getString(i));
                     }
-
-
-
-
+                    for (int i=0; i< definitions.length(); i++) {
+                        defs.add(definitions.getString(i));
+                    }
+                    for (int i=0; i< examples.length(); i++) {
+                        examps.add(examples.getString(i));
+                    }
+                    output.put("word", word);
+                    output.put("entymology", entymolgy);
+                    output.put("definitions", definitions);
+                    output.put("examples", examples);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                return output;
             }
-        };
-    }
-
-
 }
