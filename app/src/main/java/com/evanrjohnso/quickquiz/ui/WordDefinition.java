@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import java.util.Iterator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -32,6 +34,12 @@ public class WordDefinition extends AppCompatActivity {
             ListView mEntymologyListView;
     @Bind(R.id.definitions_list_view)
             ListView mDefinitionsListView;
+    @OnClick(R.id.displaySentencesButton)
+    public void sentencesButtonClicked(View v) {
+        Intent intent = new Intent(WordDefinition.this, SentencesActivity.class);
+        intent.putExtra(Constants.WORD_KEY, mWord.getText().toString());
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
