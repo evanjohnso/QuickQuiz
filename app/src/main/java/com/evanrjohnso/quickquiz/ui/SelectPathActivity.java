@@ -50,16 +50,6 @@ public class SelectPathActivity extends AppCompatActivity {
     public void clicked2() {
         categoryClicked(Constants.FIREBASE_GRE);
     }
-
-    @OnClick(R.id.implicit_intent)
-    public void clicked(View v) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "This phone does not seem to have a browser!", Toast.LENGTH_SHORT).show();
-        }
-    }
 //    @OnClick(R.id.populate_database)
 //    public void populateDB(View v) {
 //        Map<String, Object> wordMapForFirebase = readFile("words/GRE.txt");

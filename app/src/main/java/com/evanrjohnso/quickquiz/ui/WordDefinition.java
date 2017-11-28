@@ -61,7 +61,7 @@ public class WordDefinition extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final HashMap<String, Object> definitionObject = oxfordService  .processAsyncDefinitionCall(response);
+                final HashMap<String, Object> definitionObject = oxfordService.processAsyncDefinitionCall(response);
 
                 runOnUiThread(new Runnable() {
                     @Override

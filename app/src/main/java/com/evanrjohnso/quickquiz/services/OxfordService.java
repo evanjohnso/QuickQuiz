@@ -108,9 +108,9 @@ public class OxfordService {
                 String responseAsString = response.body().string();
                 HashMap<String, Object> output = new HashMap<>();
                 String word;
-                ArrayList<String> entymolgy = new ArrayList();
-                ArrayList<String> defs = new ArrayList();
-                ArrayList<String> examps = new ArrayList();
+                ArrayList<String> entymolgy = new ArrayList<>();
+                ArrayList<String> defs = new ArrayList<>();
+                ArrayList<String> examps = new ArrayList<>();
 
                 try {
                     JSONObject json = new JSONObject(responseAsString);
